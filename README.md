@@ -66,6 +66,6 @@
   - Layered Min-Sum is the clear winner: BER drops sharply after 3.5 dB (4×10⁻⁴ at 6 dB)
   - GDBF is the strongest hard-decision decoder (2.5×10⁻² at 6 dB)
   - Gallagher B improves gradually; ~6.5×10⁻² at 6 dB
-  - Flooded Min-Sum looks broken — BER stays ~0.1 and even worsens at 6 dB (0.18). Likely a bug worth investigating, since it should track Layered closely.
+  - Flooded Min-Sum diverges at high SNR — root cause identified: MAX_ITER=30 is insufficient for Zc=384. Proposed fix: increase to MAX_ITER=100 to allow full belief propagation convergence.
 
 
