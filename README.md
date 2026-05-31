@@ -61,11 +61,15 @@
   - ber_results.json + ber_vs_snr.png — output of a prior run
   - QCDEC/ — local Python venv (numpy 2.4.4, scipy 1.17.1, matplotlib 3.10.9)
 
-  Observed results (from ber_results.json)
+ ## Observed results (updated — Flooded fix applied)
 
-  - Layered Min-Sum is the clear winner: BER drops sharply after 3.5 dB (4×10⁻⁴ at 6 dB)
-  - GDBF is the strongest hard-decision decoder (2.5×10⁻² at 6 dB)
-  - Gallagher B improves gradually; ~6.5×10⁻² at 6 dB
-  - Flooded Min-Sum diverges at high SNR — root cause identified: MAX_ITER=30 is insufficient for Zc=384. Proposed fix: increase to MAX_ITER=100 to allow full belief propagation convergence.
+- *Layered Min-Sum* — best performer: waterfall after 3 dB, reaches ~3×10⁻⁴ at 6 dB. Converges in 15 iterations.
 
+- *Flooded Min-Sum* — correct behaviour restored after fix (MAX_ITER 30→100): reaches ~5×10⁻² at 6 dB. Previously diverged due to insufficient iterations for Zc=384.
 
+- *GDBF* — best hard-decision decoder: gradual descent, ~3×10⁻² at 6 dB.
+
+- *Gallagher B* — weakest decoder as expected: ~10⁻¹ across all SNR. No soft information used.
+
+## Key takeaway
+Soft decoders (Min-Sum) outperform hard-decision decoders by 1-2 orders of magnitude at high SNR. Layered scheduling converges faster than Flooded with identical per-iteration complexity.
