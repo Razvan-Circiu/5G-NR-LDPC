@@ -39,7 +39,7 @@ MIN_ERRORS = 50                         # early-stop threshold (bit errors)
 
 # Per-decoder max iterations — soft decoders converge fast, hard decoders need more
 MAX_ITER = {
-    "Flooded Min-Sum":  30,
+    "Flooded Min-Sum":  100,
     "Layered Min-Sum":  15,
     "Gallagher B":     100,
     "GDBF":            200,
